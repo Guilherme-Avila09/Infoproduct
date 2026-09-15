@@ -1,11 +1,11 @@
-# MazyOS — Sistema operacional do negócio
+# Guilherme Avila — MazyOS
 
-Sua empresa roda em cima desse arquivo. Aqui ficam as regras de operação
+Sistema operacional da agência. Aqui ficam as regras de operação
 do MazyOS — como o Claude lê o contexto, aprende com correções, mantém
 tudo atualizado e cria skills novas conforme a operação evolui.
 
-Esse arquivo é editável. Quando o `/instalar` rodar, ele complementa o
-final dessa página com as regras específicas do seu negócio.
+Esse arquivo é editável. As regras específicas da agência ficam no
+final da página (perfil: agência).
 
 ---
 
@@ -113,3 +113,89 @@ Quando o usuário pedir skill nova:
 4. Se a skill precisar de arquivos de apoio (templates, exemplos),
    criar dentro da pasta da skill
 5. Seguir o fluxo da skill-creator nativa do Claude Code
+
+---
+
+# A agência
+
+## O que é esse workspace
+
+Operação da agência Guilherme Avila. Aqui ficam a prospecção de
+influenciadores, as parcerias ativas, os infoprodutos em produção e o
+marketing da própria agência.
+
+**Estrutura de pastas:**
+- `_memoria/` — quem é a agência, como falamos, foco atual
+- `identidade/` — marca da agência (em construção)
+- `prospeccao/` — influenciadores em prospecção (primeiro contato, apresentação, qualificação)
+- `clientes/` — uma subpasta por influenciador parceiro, autossuficiente
+- `propostas/` — propostas de parceria em andamento
+- `marketing/` — conteúdo institucional da agência
+- `saidas/` — documentos pontuais, análises
+- `dados/` — arquivos a analisar (métricas de perfil, relatórios de vendas, exports de ads)
+- `tarefas.md` — pipeline da agência
+
+Pastas que ainda não existem são criadas na primeira vez que forem usadas.
+
+## Sobre a agência
+
+Criamos e vendemos infoprodutos para influenciadores do Instagram, a
+partir do conteúdo do próprio influenciador. Atendemos influenciadores
+com 2 mil a 3 mil seguidores, nicho geral (a definir). O faturamento
+das vendas é dividido 50/50 entre a agência e o influenciador.
+
+Serviços principais:
+
+- Criação do infoproduto (mentoria, curso, aulas gravadas, e-book etc.)
+- Marketing do lançamento
+- Tráfego pago
+
+Time: 2 pessoas, os dois fazem tudo por enquanto. Guilherme faz o
+fechamento comercial. Capacidade: a definir.
+
+## Clientes ativos
+
+Nenhum ainda. O `/atualizar` mantém essa lista sincronizada com as
+pastas em `clientes/`.
+
+## Funil comercial
+
+1. Primeiro contato (Claude)
+2. Apresentação (Claude)
+3. Qualificação (Claude)
+4. Lead qualificado → Guilherme fecha o serviço completo
+
+## O que mais produzimos aqui
+
+- Mensagens de prospecção e apresentação para influenciadores
+- Propostas de parceria
+- Estrutura e conteúdo de infoprodutos
+- Campanhas de marketing e tráfego pago dos lançamentos
+
+## Tom de voz
+
+Descontraído e leve, mas profissional, com credibilidade e
+posicionamento forte. Detalhes em `_memoria/preferencias.md`.
+
+Evitar: traços de texto de IA, redundâncias, emojis, urgência falsa,
+jargão de guru.
+
+## Regras do sistema
+
+- Influenciador novo em prospecção → `prospeccao/<nome-do-perfil>.md` com dados do perfil, etapa do funil e histórico de contato
+- Lead qualificado → sinalizar pro Guilherme com um resumo do perfil e do motivo da qualificação
+- Parceria fechada → criar pasta `clientes/<Nome>/` com briefing, estratégia do infoproduto e subpastas conforme as entregas
+- Proposta nova → `propostas/<cliente>-<data>.html` antes de fechar
+- Casos de sucesso ficam em `clientes/<Nome>/caso.md` (reuso em prospecção)
+
+## Ferramentas conectadas
+
+- [ ] Instagram / Meta Graph API
+- [ ] Notion
+- [ ] Gmail
+- [ ] Google Calendar
+- [ ] Canva
+- [ ] Meta Ads
+- [ ] Google Ads
+
+*(Marcar conforme for instalando os MCPs)*

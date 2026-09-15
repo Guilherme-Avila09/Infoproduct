@@ -10,7 +10,7 @@
 
 - **Fundo principal:**
 
-- **Cor de destaque / CTA:**
+- **Cor de destaque / CTA:** #452c91 (roxo profundo). Única cor definida até agora; cor principal da marca.
 
 - **Texto principal:**
 
@@ -57,3 +57,5 @@
 ---
 
 ## Observações adicionais
+
+Identidade visual ainda em construção. Sem logo e sem fonte definidas; só a cor principal (#452c91). Vai ser montada na sequência do setup. Até lá, usar #452c91 como cor de destaque e manter o resto neutro e sóbrio.
