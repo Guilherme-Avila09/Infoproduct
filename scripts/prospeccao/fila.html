@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fila de prospecção</title>
+<style>
+  :root {
+    --bg: #f6f5f9; --card: #fff; --texto: #1c1a22; --suave: #6b6778; --borda: #e4e1ec;
+    --marca: #452c91; --marca-claro: #efeaf9; --ok: #1f7a4d;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #131118; --card: #1c1a23; --texto: #eeebf5; --suave: #9c97aa; --borda: #2e2a38; --marca-claro: #2a2240; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--texto); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 36px 0 12px; }
+  .sub { color: var(--suave); margin: 0 0 20px; }
+  .placar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .chip { background: var(--card); border: 1px solid var(--borda); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--suave); }
+  .chip b { color: var(--texto); }
+  .card { background: var(--card); border: 1px solid var(--borda); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+  .topo { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+  .topo a { color: var(--marca); font-weight: 600; text-decoration: none; }
+  @media (prefers-color-scheme: dark) { .topo a { color: #b7a3f0; } }
+  .meta { color: var(--suave); font-size: 13px; }
+  .bio { color: var(--suave); font-size: 13px; margin: 6px 0 10px; white-space: pre-line; }
+  textarea { width: 100%; min-height: 84px; resize: vertical; font: inherit; color: var(--texto); background: var(--bg); border: 1px solid var(--borda); border-radius: 8px; padding: 10px; }
+  .botoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  button { font: inherit; font-size: 14px; border-radius: 8px; padding: 8px 14px; cursor: pointer; border: 1px solid var(--borda); background: var(--card); color: var(--texto); }
+  button.principal { background: var(--marca); border-color: var(--marca); color: #fff; }
+  button.enviado { background: var(--marca-claro); border-color: transparent; }
+  .vazio { color: var(--suave); background: var(--card); border: 1px dashed var(--borda); border-radius: 12px; padding: 20px; text-align: center; }
+  .dica { font-size: 13px; color: var(--suave); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Fila de prospecção</h1>
+  <p class="sub">Clique em <b>Copiar e abrir DM</b>, cole a mensagem no Instagram (Ctrl+V), envie e depois marque aqui.</p>
+  <div class="placar" id="placar"></div>
+
+  <h2>Primeiro contato</h2>
+  <div id="novos"></div>
+
+  <h2>Follow-up (sem resposta há alguns dias)</h2>
+  <div id="followups"></div>
+
+  <p class="dica">Abra a DM no navegador em que você está logado no @gui_de_avila. Quando o influenciador responder, o bot de conversa (npm run ig:conversar) assume.</p>
+</main>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, props = {}, filhos = []) => {
+    const n = Object.assign(document.createElement(tag), props);
+    for (const f of [].concat(filhos)) n.append(f);
+    return n;
+  };
+
+  async function acao(username, tipo, mensagem) {
+    const r = await fetch('/api/acao', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, acao: tipo, mensagem }) });
+    const dados = await r.json();
+    if (!r.ok) return alert(dados.erro);
+    render(dados);
+  }
+
+  function card(lead, textoInicial, acaoEnviar, acaoSecundaria) {
+    const campo = el('textarea', { value: textoInicial });
+    const copiar = el('button', { className: 'principal', textContent: 'Copiar e abrir DM' });
+    copiar.onclick = async () => {
+      await navigator.clipboard.writeText(campo.value);
+      window.open('https://ig.me/m/' + encodeURIComponent(lead.username), '_blank');
+      copiar.textContent = 'Copiado. Cole no Instagram';
+      copiar.className = 'enviado';
+    };
+    const marcar = el('button', { textContent: 'Marcar como enviada' });
+    marcar.onclick = () => acao(lead.username, acaoEnviar, campo.value);
+    const secundaria = el('button', { textContent: acaoSecundaria.rotulo });
+    secundaria.onclick = () => acao(lead.username, acaoSecundaria.acao);
+
+    const meta = [lead.nome, lead.seguidores && lead.seguidores + ' seguidores', lead.tema, lead.engajamento_pct && lead.engajamento_pct + '% engajamento']
+      .filter(Boolean).join(' · ');
+
+    return el('div', { className: 'card' }, [
+      el('div', { className: 'topo' }, [
+        el('a', { href: 'https://www.instagram.com/' + encodeURIComponent(lead.username) + '/', target: '_blank', textContent: '@' + lead.username }),
+        el('span', { className: 'meta', textContent: meta }),
+      ]),
+      el('div', { className: 'bio', textContent: lead.bio || '' }),
+      campo,
+      el('div', { className: 'botoes' }, [copiar, marcar, secundaria]),
+    ]);
+  }
+
+  function render(dados) {
+    const rotulos = { novo: 'na fila', enviado: 'aguardando resposta', follow_up: 'follow-up enviado', conversando: 'conversando', qualificado: 'qualificados', humano: 'com o Guilherme', descartado: 'descartados', pulado: 'pulados', reprovado: 'reprovados na busca' };
+    $('placar').replaceChildren(
+      el('span', { className: 'chip' }, [el('b', { textContent: dados.enviadasHoje + '/' + dados.limite }), ' enviadas hoje']),
+      ...Object.entries(dados.resumo).map(([s, n]) => el('span', { className: 'chip' }, [el('b', { textContent: n }), ' ' + (rotulos[s] || s)])),
+    );
+
+    $('novos').replaceChildren(
+      ...(dados.novos.length
+        ? dados.novos.map((l) => card(l, l.mensagem_inicial, 'enviado', { rotulo: 'Pular', acao: 'pular' }))
+        : [el('div', { className: 'vazio', textContent: dados.enviadasHoje >= dados.limite ? 'Limite de hoje atingido. Volte amanhã.' : 'Fila vazia. Rode "npm run ig:buscar" pra encontrar novos perfis.' })]),
+    );
+
+    $('followups').replaceChildren(
+      ...(dados.followUps.length
+        ? dados.followUps.map((l) => card(l, l.mensagem_follow_up, 'follow_up', { rotulo: 'Descartar', acao: 'descartar' }))
+        : [el('div', { className: 'vazio', textContent: 'Nenhum follow-up pendente.' })]),
+    );
+  }
+
+  fetch('/api/fila').then((r) => r.json()).then(render);
+</script>
+</body>
+</html>

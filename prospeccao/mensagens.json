@@ -1,0 +1,12 @@
+{
+  "primeiro_contato": [
+    "Oi, {nome}. Vi seus posts sobre {tema} e fiquei com uma ideia de produto digital que dá pra montar com o conteúdo que você já cria. Posso te explicar rapidinho?",
+    "{nome}, tudo certo? A gente monta cursos e mentorias junto com criadores de {tema}. Olhando seu perfil, vi material pra isso. Te conto como funciona?",
+    "Oi, {nome}. Pergunta direta: você já pensou em transformar o que ensina sobre {tema} num curso ou mentoria? A gente cria e vende isso junto com o criador. Faz sentido conversar?",
+    "Oi, {nome}. O que você posta sobre {tema} é o tipo de conteúdo que muita gente pagaria pra aprender com mais profundidade. Tenho uma proposta sobre isso, posso te mandar?"
+  ],
+  "follow_up": [
+    "{nome}, só retomando: a ideia é a gente criar um produto digital com o seu conteúdo e dividir o resultado das vendas. Se quiser entender melhor, me responde por aqui.",
+    "Oi, {nome}. Não quero encher sua caixa, então fica só esse lembrete: se quiser transformar o conteúdo de {tema} num curso ou mentoria, é só chamar."
+  ]
+}

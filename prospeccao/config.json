@@ -1,0 +1,68 @@
+{
+  "conta_instagram": "gui_de_avila",
+  "nicho": "fitness e desenvolvimento pessoal",
+
+  "filtros": {
+    "seguidores_min": 2000,
+    "seguidores_max": 3000,
+    "min_publicacoes": 9,
+    "ultimo_post_max_dias": 30,
+    "engajamento_min_pct": 1
+  },
+
+  "busca": {
+    "termos": [
+      "\"personal trainer\" CREF",
+      "\"personal\" \"CREF\" treino",
+      "\"personal trainer\" emagrecimento",
+      "\"personal trainer\" hipertrofia",
+      "\"treinadora\" \"CREF\"",
+      "\"coach\" \"desenvolvimento pessoal\"",
+      "\"mentora\" \"desenvolvimento pessoal\"",
+      "\"psicóloga\" autoconhecimento",
+      "\"coach\" produtividade hábitos",
+      "\"coach de emagrecimento\""
+    ],
+    "max_perfis_verificados_por_rodada": 25,
+    "intervalo_entre_buscas_seg": [6, 12],
+    "intervalo_entre_perfis_seg": [20, 45]
+  },
+
+  "temas": {
+    "personal trainer": "treino",
+    "hipertrofia": "hipertrofia",
+    "emagrec": "emagrecimento",
+    "musculacao": "musculação",
+    "treino": "treino",
+    "fitness": "fitness",
+    "crossfit": "crossfit",
+    "corrida": "corrida",
+    "pilates": "pilates",
+    "yoga": "yoga",
+    "nutri": "alimentação saudável",
+    "dieta": "alimentação saudável",
+    "vida saudavel": "vida saudável",
+    "desenvolvimento pessoal": "desenvolvimento pessoal",
+    "autoconhecimento": "autoconhecimento",
+    "mentalidade": "mentalidade",
+    "mindset": "mentalidade",
+    "produtividade": "produtividade",
+    "habitos": "hábitos",
+    "disciplina": "disciplina"
+  },
+
+  "envio": {
+    "limite_primeiras_dms_por_dia": 15,
+    "dias_para_follow_up": 3
+  },
+
+  "conversa": {
+    "modelo": "haiku",
+    "intervalo_checagem_min": [3, 6],
+    "esperar_resposta_do_influenciador_seg": 60,
+    "max_respostas_por_dia": 40,
+    "max_mensagens_do_bot_por_conversa": 10,
+    "horario_inicio": 8,
+    "horario_fim": 21
+  }
+}

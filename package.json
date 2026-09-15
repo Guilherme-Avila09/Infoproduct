@@ -1,0 +1,19 @@
+{
+  "name": "guilherme-avila-mazyos",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "ig:login": "node scripts/prospeccao/login.js",
+    "ig:buscar": "node scripts/prospeccao/buscar.js",
+    "ig:fila": "node scripts/prospeccao/fila.js",
+    "ig:conversar": "node scripts/prospeccao/conversar.js",
+    "ig:teste": "node scripts/prospeccao/conversar.js --teste --uma-vez"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright": "^1.63.0",
+    "zod": "^4.6.5"
+  }
+}

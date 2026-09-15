@@ -21,6 +21,14 @@ node_modules/
 *.log
 *.tmp
 
+# Chaves de API
+.env
+
+# Prospecção: login do Instagram e dados dos influenciadores ficam só nessa máquina
+.instagram-session/
+prospeccao/leads.json
+prospeccao/qualificados/
+
 # Drop zone do usuário (só o README vai versionado)
 dados/*
 !dados/README.md
